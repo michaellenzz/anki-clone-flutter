@@ -72,16 +72,18 @@ class _AddCardState extends State<AddCard> {
                   style: TextStyle(color: Colors.white, fontSize: 16),
                 ),
                 onPressed: () {
-                  Cartao c = Cartao();
-                  c.back = back.text;
-                  c.front = front.text;
-                  c.dataInclusao = DateTime.now().toString();
-                  c.proxRevisao = 'new';
-                  c.qtdRevisao = 0;
+                  if (back.text.isNotEmpty && front.text.isNotEmpty) {
+                    Cartao c = Cartao();
+                    c.back = back.text;
+                    c.front = front.text;
+                    c.dataInclusao = DateTime.now().toString();
+                    c.proxRevisao = DateTime.now().toString();
+                    c.nivel = 0;
 
-                  helper.adicionarCartao(c);
-                  back.clear();
-                  front.clear();
+                    helper.adicionarCartao(c);
+                    back.clear();
+                    front.clear();
+                  }
                 },
               ),
             )

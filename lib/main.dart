@@ -1,4 +1,3 @@
-import 'package:anki_clone/addcard.dart';
 import 'package:anki_clone/card.dart';
 import 'package:flutter/material.dart';
 

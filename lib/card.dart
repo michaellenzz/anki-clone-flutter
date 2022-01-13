@@ -74,55 +74,63 @@ class _CardScreenState extends State<CardScreen> {
                     ),
                   )),
         bottomSheet: visualized
-            ? finished ? Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    color: Colors.red,
-                    child: TextButton(
-                        onPressed: () {
-                          nextCard();
-                        },
-                        child: const Text(
-                          'Novamente',
-                          style: TextStyle(color: Colors.white, fontSize: 16),
-                        )),
-                  ),
-                  Container(
-                    color: Colors.grey,
-                    child: TextButton(
-                        onPressed: () {
-                          nextCard();
-                        },
-                        child: const Text(
-                          ' Difícil ',
-                          style: TextStyle(color: Colors.white, fontSize: 16),
-                        )),
-                  ),
-                  Container(
-                    color: Colors.green,
-                    child: TextButton(
-                        onPressed: () {
-                          nextCard();
-                        },
-                        child: const Text(
-                          '  Bom  ',
-                          style: TextStyle(color: Colors.white, fontSize: 16),
-                        )),
-                  ),
-                  Container(
-                    color: Colors.blue,
-                    child: TextButton(
-                        onPressed: () {
-                          nextCard();
-                        },
-                        child: const Text(
-                          ' Fácil ',
-                          style: TextStyle(color: Colors.white, fontSize: 16),
-                        )),
-                  ),
-                ],
-              ) : Container(height: 0,)
+            ? finished
+                ? Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        color: Colors.red,
+                        child: TextButton(
+                            onPressed: () {
+                              nextCard();
+                            },
+                            child: const Text(
+                              'Novamente',
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 16),
+                            )),
+                      ),
+                      Container(
+                        color: Colors.grey,
+                        child: TextButton(
+                            onPressed: () {
+                              nextCard();
+                            },
+                            child: const Text(
+                              ' Difícil ',
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 16),
+                            )),
+                      ),
+                      Container(
+                        color: Colors.green,
+                        child: TextButton(
+                            onPressed: () {
+                              nextCard();
+                            },
+                            child: const Text(
+                              '  Bom  ',
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 16),
+                            )),
+                      ),
+                      Container(
+                        color: Colors.blue,
+                        child: TextButton(
+                            onPressed: () {
+                              nextCard();
+                            },
+                            child: const Text(
+                              ' Fácil ',
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 16),
+                            )),
+                      ),
+                    ],
+                  )
+                : Container(
+                    height: 0,
+                  )
             : Row(
                 children: [
                   Expanded(

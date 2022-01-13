@@ -6,7 +6,7 @@ const String idColumn = "idColumn";
 const String backColumn = "backColumn";
 const String frontColumn = "frontColumn";
 const String dataInclusaoColumn = "dataInclusaoColumn";
-const String qtdRevisaoColumn = "qtdRevisaoColumn";
+const String nivelColumn = "nivelColumn";
 const String proxRevisaoColumn = "proxRevisaoColumn";
 
 class CardHelper {
@@ -35,7 +35,7 @@ class CardHelper {
     return await openDatabase(path, version: 1,
         onCreate: (Database db, int newVersion) async {
       await db.execute(
-          'CREATE TABLE $cardsTable ($idColumn INTEGER PRIMARY KEY, $backColumn TEXT, $frontColumn TEXT, $dataInclusaoColumn TEXT, $qtdRevisaoColumn TEXT, $proxRevisaoColumn TEXT)');
+          'CREATE TABLE $cardsTable ($idColumn INTEGER PRIMARY KEY, $backColumn TEXT, $frontColumn TEXT, $dataInclusaoColumn TEXT, $nivelColumn TEXT, $proxRevisaoColumn TEXT)');
     });
   }
 
@@ -53,7 +53,7 @@ class CardHelper {
           backColumn,
           frontColumn,
           dataInclusaoColumn,
-          qtdRevisaoColumn,
+          nivelColumn,
           proxRevisaoColumn
         ],
         where: '$idColumn = ?',
@@ -78,11 +78,16 @@ class CardHelper {
   }
 
   Future<List> getAllCards() async {
+    DateTime hoje = DateTime.now();
     Database? dbCartao = await db;
     List listMap = await dbCartao!.rawQuery('SELECT * FROM $cardsTable');
     List<Cartao> listCartao = [];
     for (Map m in listMap) {
-      listCartao.add(Cartao.fromMap(m));
+      DateTime proxRev = DateTime.parse(m['proxRevisaoColumn']);
+      if(proxRev.isBefore(hoje)){
+        listCartao.add(Cartao.fromMap(m));
+      }
+      
     }
     return listCartao;
   }
@@ -98,27 +103,27 @@ class Cartao {
   String? back;
   String? front;
   String? dataInclusao;
-  int? qtdRevisao;
+  int? nivel;
   String? proxRevisao;
 
   Cartao();
 
   Cartao.fromMap(Map map) {
-    id = map['idColumn'];
-    back = map['backColumn'];
-    front = map['frontColumn'];
-    dataInclusao = map['dataInclusaoColumn'];
-    qtdRevisao = int.parse((map['qtdRevisaoColumn']));
-    proxRevisao = map['proxRevisaoColumn'];
+    id = map[idColumn];
+    back = map[backColumn];
+    front = map[frontColumn];
+    dataInclusao = map[dataInclusaoColumn];
+    nivel = int.parse((map[nivelColumn]));
+    proxRevisao = map[proxRevisaoColumn];
   }
 
   Map<String, dynamic> toMap() {
     Map<String, dynamic> map = {
-      'backColumn': back,
-      'frontColumn': front,
-      'dataInclusaoColumn': dataInclusao,
-      'qtdRevisaoColumn': qtdRevisao,
-      'proxRevisaoColumn': proxRevisao
+      backColumn: back,
+      frontColumn: front,
+      dataInclusaoColumn: dataInclusao,
+      nivelColumn: nivel,
+      proxRevisaoColumn: proxRevisao
     };
     // ignore: unnecessary_null_comparison
     if (id != null) {
@@ -129,6 +134,6 @@ class Cartao {
 
   @override
   String toString() {
-    return 'Cartao(id: $id, back: $back, front: $front, dataInclusao: $dataInclusao, qtdRevisao: $qtdRevisao, proxRevisao: $proxRevisao)';
+    return 'Cartao(id: $id, back: $back, front: $front, dataInclusao: $dataInclusao, qtdRevisao: $nivel, proxRevisao: $proxRevisao)';
   }
 }
