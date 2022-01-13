@@ -70,7 +70,6 @@ class SQFlite {
   }
 
   Future<int> updateCartao(Cartao cartao) async {
-    print('banana');
     Database? dbCartao = await db;
     return await dbCartao!.update(cardsTable, cartao.toMap(),
         where: '$idColumn = ?', whereArgs: [cartao.id]);

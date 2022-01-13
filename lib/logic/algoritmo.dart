@@ -60,6 +60,7 @@ class Algoritmo {
 
       default:
         {
+          // ignore: avoid_print
           print("sem nivel");
         }
         break;
@@ -131,6 +132,7 @@ class Algoritmo {
 
       default:
         {
+          // ignore: avoid_print
           print("sem nivel");
         }
         break;
@@ -202,6 +204,7 @@ class Algoritmo {
 
       default:
         {
+          // ignore: avoid_print
           print("sem nivel");
         }
         break;

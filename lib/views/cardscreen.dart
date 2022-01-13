@@ -16,6 +16,7 @@ class _CardScreenState extends State<CardScreen> {
   bool finished = true;
   int qtdCartoes = 0;
   int count = 0;
+  // ignore: prefer_typing_uninitialized_variables
   var cartaoSel;
 
   @override
@@ -39,7 +40,6 @@ class _CardScreenState extends State<CardScreen> {
                 ? FutureBuilder<List>(
                     future: helper.getAllCards(),
                     builder: (context, snapshot) {
-                      print(snapshot.data);
                       if (!snapshot.hasData) {
                         return const Center(
                           child: Text('Não há cartões para estudar'),
