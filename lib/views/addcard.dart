@@ -1,4 +1,4 @@
-import 'package:anki_clone/database/card_helper.dart';
+import 'package:anki_clone/database/sqflite.dart';
 import 'package:flutter/material.dart';
 
 class AddCard extends StatefulWidget {
@@ -9,7 +9,7 @@ class AddCard extends StatefulWidget {
 }
 
 class _AddCardState extends State<AddCard> {
-  CardHelper helper = CardHelper();
+  SQFlite helper = SQFlite();
 
   var front = TextEditingController();
   var back = TextEditingController();
@@ -76,7 +76,6 @@ class _AddCardState extends State<AddCard> {
                     Cartao c = Cartao();
                     c.back = back.text;
                     c.front = front.text;
-                    c.dataInclusao = DateTime.now().toString();
                     c.proxRevisao = DateTime.now().toString();
                     c.nivel = 0;
 

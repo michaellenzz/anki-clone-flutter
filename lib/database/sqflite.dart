@@ -5,16 +5,15 @@ const String cardsTable = "cardsTable";
 const String idColumn = "idColumn";
 const String backColumn = "backColumn";
 const String frontColumn = "frontColumn";
-const String dataInclusaoColumn = "dataInclusaoColumn";
 const String nivelColumn = "nivelColumn";
 const String proxRevisaoColumn = "proxRevisaoColumn";
 
-class CardHelper {
-  static final CardHelper _instance = CardHelper.internal();
+class SQFlite {
+  static final SQFlite _instance = SQFlite.internal();
 
-  factory CardHelper() => _instance;
+  factory SQFlite() => _instance;
 
-  CardHelper.internal();
+  SQFlite.internal();
 
   Database? _db;
 
@@ -35,7 +34,7 @@ class CardHelper {
     return await openDatabase(path, version: 1,
         onCreate: (Database db, int newVersion) async {
       await db.execute(
-          'CREATE TABLE $cardsTable ($idColumn INTEGER PRIMARY KEY, $backColumn TEXT, $frontColumn TEXT, $dataInclusaoColumn TEXT, $nivelColumn TEXT, $proxRevisaoColumn TEXT)');
+          'CREATE TABLE $cardsTable ($idColumn INTEGER PRIMARY KEY, $backColumn TEXT, $frontColumn TEXT, $nivelColumn TEXT, $proxRevisaoColumn TEXT)');
     });
   }
 
@@ -52,7 +51,6 @@ class CardHelper {
           idColumn,
           backColumn,
           frontColumn,
-          dataInclusaoColumn,
           nivelColumn,
           proxRevisaoColumn
         ],
@@ -72,6 +70,7 @@ class CardHelper {
   }
 
   Future<int> updateCartao(Cartao cartao) async {
+    print('banana');
     Database? dbCartao = await db;
     return await dbCartao!.update(cardsTable, cartao.toMap(),
         where: '$idColumn = ?', whereArgs: [cartao.id]);
@@ -84,10 +83,9 @@ class CardHelper {
     List<Cartao> listCartao = [];
     for (Map m in listMap) {
       DateTime proxRev = DateTime.parse(m['proxRevisaoColumn']);
-      if(proxRev.isBefore(hoje)){
+      if (proxRev.isBefore(hoje)) {
         listCartao.add(Cartao.fromMap(m));
       }
-      
     }
     return listCartao;
   }
@@ -102,7 +100,6 @@ class Cartao {
   int? id;
   String? back;
   String? front;
-  String? dataInclusao;
   int? nivel;
   String? proxRevisao;
 
@@ -112,7 +109,6 @@ class Cartao {
     id = map[idColumn];
     back = map[backColumn];
     front = map[frontColumn];
-    dataInclusao = map[dataInclusaoColumn];
     nivel = int.parse((map[nivelColumn]));
     proxRevisao = map[proxRevisaoColumn];
   }
@@ -121,7 +117,6 @@ class Cartao {
     Map<String, dynamic> map = {
       backColumn: back,
       frontColumn: front,
-      dataInclusaoColumn: dataInclusao,
       nivelColumn: nivel,
       proxRevisaoColumn: proxRevisao
     };
@@ -134,6 +129,6 @@ class Cartao {
 
   @override
   String toString() {
-    return 'Cartao(id: $id, back: $back, front: $front, dataInclusao: $dataInclusao, qtdRevisao: $nivel, proxRevisao: $proxRevisao)';
+    return 'Cartao(id: $id, back: $back, front: $front, nivel: $nivel, proxRevisao: $proxRevisao)';
   }
 }

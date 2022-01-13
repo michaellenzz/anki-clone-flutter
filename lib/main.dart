@@ -1,4 +1,4 @@
-import 'package:anki_clone/card.dart';
+import 'package:anki_clone/views/cardscreen.dart';
 import 'package:flutter/material.dart';
 
 void main() {

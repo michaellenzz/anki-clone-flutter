@@ -1,5 +1,6 @@
-import 'package:anki_clone/addcard.dart';
-import 'package:anki_clone/database/card_helper.dart';
+import 'package:anki_clone/logic/algoritmo.dart';
+import 'package:anki_clone/views/addcard.dart';
+import 'package:anki_clone/database/sqflite.dart';
 import 'package:flutter/material.dart';
 
 class CardScreen extends StatefulWidget {
@@ -10,11 +11,12 @@ class CardScreen extends StatefulWidget {
 }
 
 class _CardScreenState extends State<CardScreen> {
-  CardHelper helper = CardHelper();
+  SQFlite helper = SQFlite();
   bool visualized = false;
   bool finished = true;
   int qtdCartoes = 0;
   int count = 0;
+  var cartaoSel;
 
   @override
   Widget build(BuildContext context) {
@@ -37,12 +39,14 @@ class _CardScreenState extends State<CardScreen> {
                 ? FutureBuilder<List>(
                     future: helper.getAllCards(),
                     builder: (context, snapshot) {
+                      print(snapshot.data);
                       if (!snapshot.hasData) {
                         return const Center(
                           child: Text('Não há cartões para estudar'),
                         );
                       } else {
                         qtdCartoes = snapshot.data!.length;
+                        cartaoSel = snapshot.data![count];
                         finished = true;
                         return Column(
                           children: [
@@ -76,52 +80,65 @@ class _CardScreenState extends State<CardScreen> {
         bottomSheet: visualized
             ? finished
                 ? Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Container(
-                        color: Colors.red,
+                        margin: const EdgeInsets.only(bottom: 6),
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        decoration: BoxDecoration(
+                          color: Colors.red,
+                          borderRadius: BorderRadius.circular(30)
+                        ),
+                        
                         child: TextButton(
                             onPressed: () {
+                              Algoritmo().botaoDificil(
+                                cartaoSel,
+                              );
                               nextCard();
                             },
                             child: const Text(
-                              'Novamente',
+                              'Difícil',
                               style:
                                   TextStyle(color: Colors.white, fontSize: 16),
                             )),
                       ),
                       Container(
-                        color: Colors.grey,
+                        margin: const EdgeInsets.only(bottom: 6),
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        decoration: BoxDecoration(
+                          color: Colors.green,
+                          borderRadius: BorderRadius.circular(30)
+                        ),
                         child: TextButton(
                             onPressed: () {
+                              Algoritmo().botaoBom(
+                                cartaoSel,
+                              );
                               nextCard();
                             },
                             child: const Text(
-                              ' Difícil ',
+                              'Bom',
                               style:
                                   TextStyle(color: Colors.white, fontSize: 16),
                             )),
                       ),
                       Container(
-                        color: Colors.green,
+                        margin: const EdgeInsets.only(bottom: 6),
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        decoration: BoxDecoration(
+                          color: Colors.blue,
+                          borderRadius: BorderRadius.circular(30)
+                        ),
                         child: TextButton(
                             onPressed: () {
+                              Algoritmo().botaoFacil(
+                                cartaoSel,
+                              );
                               nextCard();
                             },
                             child: const Text(
-                              '  Bom  ',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 16),
-                            )),
-                      ),
-                      Container(
-                        color: Colors.blue,
-                        child: TextButton(
-                            onPressed: () {
-                              nextCard();
-                            },
-                            child: const Text(
-                              ' Fácil ',
+                              'Fácil',
                               style:
                                   TextStyle(color: Colors.white, fontSize: 16),
                             )),
