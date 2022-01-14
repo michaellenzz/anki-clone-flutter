@@ -1,5 +1,4 @@
-import 'package:anki_clone/views/cardscreen.dart';
-import 'package:anki_clone/views/info_card.dart';
+import 'package:anki_clone/views/home/home_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -18,7 +17,7 @@ class MyApp extends StatelessWidget {
 
         primarySwatch: Colors.blue,
       ),
-      home: const InfoCard());
+      home: HomePage());
     
   }
 }

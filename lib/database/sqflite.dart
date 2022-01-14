@@ -1,12 +1,19 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
+//atributos da tabela cards
 const String cardsTable = "cardsTable";
 const String idColumn = "idColumn";
 const String backColumn = "backColumn";
 const String frontColumn = "frontColumn";
 const String nivelColumn = "nivelColumn";
 const String proxRevisaoColumn = "proxRevisaoColumn";
+const String fkDeckColumn = "fkDeckColumn";
+
+//atributos da tabela decks
+const String decksTable = 'decksTable';
+const String idDeckColumn = 'idDeckColumn';
+const String nameDeckColumn = 'nameDeckColumn';
 
 class SQFlite {
   static final SQFlite _instance = SQFlite.internal();
@@ -29,12 +36,15 @@ class SQFlite {
 
   Future<Database> initDb() async {
     final databasesPath = await getDatabasesPath();
-    final path = join(databasesPath, 'cards.db');
+    final path = join(databasesPath, 'anki.db');
 
     return await openDatabase(path, version: 1,
         onCreate: (Database db, int newVersion) async {
       await db.execute(
-          'CREATE TABLE $cardsTable ($idColumn INTEGER PRIMARY KEY, $backColumn TEXT, $frontColumn TEXT, $nivelColumn TEXT, $proxRevisaoColumn TEXT)');
+          'CREATE TABLE $cardsTable ($idColumn INTEGER PRIMARY KEY autoincrement, $backColumn TEXT, $frontColumn TEXT, $nivelColumn INTEGER, $proxRevisaoColumn TEXT, $fkDeckColumn INTEGER)');
+
+      await db.execute(
+          'CREATE TABLE $decksTable ($idDeckColumn INTEGER PRIMARY KEY autoincrement, $nameDeckColumn TEXT)');
     });
   }
 
@@ -42,6 +52,12 @@ class SQFlite {
     Database? dbCartao = await db;
     cartao.id = await dbCartao!.insert(cardsTable, cartao.toMap());
     return cartao;
+  }
+  
+  Future<Deck> adicionarDeck(Deck deck) async {
+    Database? dbDeck = await db;
+    deck.idDeck = await dbDeck!.insert(decksTable, deck.toMap());
+    return deck;
   }
 
   Future<Cartao?> getCartao(int id) async {
@@ -52,7 +68,8 @@ class SQFlite {
           backColumn,
           frontColumn,
           nivelColumn,
-          proxRevisaoColumn
+          proxRevisaoColumn,
+          fkDeckColumn
         ],
         where: '$idColumn = ?',
         whereArgs: [id]);
@@ -75,11 +92,10 @@ class SQFlite {
         where: '$idColumn = ?', whereArgs: [cartao.id]);
   }
 
-  Future<List> getAllCards() async {
-    print('buscou no banco');
+  Future<List> getAllCardsToStudy(idDeck) async {
     DateTime hoje = DateTime.now();
     Database? dbCartao = await db;
-    List listMap = await dbCartao!.rawQuery('SELECT * FROM $cardsTable');
+    List listMap = await dbCartao!.rawQuery('SELECT * FROM $cardsTable WHERE $fkDeckColumn = $idDeck');
     List<Cartao> listCartao = [];
     for (Map m in listMap) {
       DateTime proxRev = DateTime.parse(m['proxRevisaoColumn']);
@@ -88,6 +104,26 @@ class SQFlite {
       }
     }
     return listCartao;
+  }
+
+  Future<List> getAllCards() async {
+    Database? dbCartao = await db;
+    List listMap = await dbCartao!.rawQuery('SELECT * FROM $cardsTable');
+    List<Cartao> listCartao = [];
+    for (Map m in listMap) {
+      listCartao.add(Cartao.fromMap(m));
+    }
+    return listCartao;
+  }
+  
+  Future<List> getAllDecks() async {
+    Database? dbDeck = await db;
+    List listMap = await dbDeck!.rawQuery('SELECT * FROM $decksTable');
+    List<Deck> listDeck = [];
+    for (Map m in listMap) {
+      listDeck.add(Deck.fromMap(m));
+    }
+    return listDeck;
   }
 
   close() async {
@@ -102,6 +138,7 @@ class Cartao {
   String? front;
   int? nivel;
   String? proxRevisao;
+  int? fkDeck;
 
   Cartao();
 
@@ -109,8 +146,9 @@ class Cartao {
     id = map[idColumn];
     back = map[backColumn];
     front = map[frontColumn];
-    nivel = int.parse((map[nivelColumn]));
+    nivel = map[nivelColumn];
     proxRevisao = map[proxRevisaoColumn];
+    fkDeck = map[fkDeckColumn];
   }
 
   Map<String, dynamic> toMap() {
@@ -118,17 +156,47 @@ class Cartao {
       backColumn: back,
       frontColumn: front,
       nivelColumn: nivel,
-      proxRevisaoColumn: proxRevisao
+      proxRevisaoColumn: proxRevisao,
+      fkDeckColumn: fkDeck
     };
     // ignore: unnecessary_null_comparison
     if (id != null) {
-      map['idColumn'] = id;
+      map[idColumn] = id;
     }
     return map;
   }
 
   @override
   String toString() {
-    return 'Cartao(id: $id, back: $back, front: $front, nivel: $nivel, proxRevisao: $proxRevisao)';
+    return 'Cartao(id: $id, back: $back, front: $front, nivel: $nivel, proxRevisao: $proxRevisao, fkDeck: $fkDeck)';
+  }
+}
+class Deck {
+  int? idDeck;
+  String? nameDeck;
+
+
+  Deck();
+
+  Deck.fromMap(Map map) {
+    idDeck = map[idDeckColumn];
+    nameDeck = map[nameDeckColumn];
+
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {
+      nameDeckColumn: nameDeck,
+    };
+    // ignore: unnecessary_null_comparison
+    if (idDeck != null) {
+      map[idDeckColumn] = idDeck;
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return 'Deck(idDeck: $idDeck, nameDeck: $nameDeck)';
   }
 }

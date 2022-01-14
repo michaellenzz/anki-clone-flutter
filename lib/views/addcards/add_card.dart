@@ -2,7 +2,9 @@ import 'package:anki_clone/database/sqflite.dart';
 import 'package:flutter/material.dart';
 
 class AddCard extends StatefulWidget {
-  const AddCard({Key? key}) : super(key: key);
+  // ignore: prefer_typing_uninitialized_variables
+  final snapshot;
+  const AddCard(this.snapshot, {Key? key}) : super(key: key);
 
   @override
   _AddCardState createState() => _AddCardState();
@@ -14,12 +16,11 @@ class _AddCardState extends State<AddCard> {
   var front = TextEditingController();
   var back = TextEditingController();
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Deck nome'),
+        title: Text(widget.snapshot.nameDeck),
         centerTitle: true,
       ),
       body: Container(
@@ -79,6 +80,7 @@ class _AddCardState extends State<AddCard> {
                     c.front = front.text;
                     c.proxRevisao = DateTime.now().toString();
                     c.nivel = 0;
+                    c.fkDeck = widget.snapshot.idDeck;
 
                     helper.adicionarCartao(c);
                     back.clear();
