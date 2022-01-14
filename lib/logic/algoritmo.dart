@@ -13,7 +13,6 @@ class Algoritmo {
         {
           proxRevisao = hoje;
           novoNivel = 0;
-          print('caiu aqui');
         }
         break;
 

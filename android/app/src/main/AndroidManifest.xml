@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.anki_clone">
    <application
-        android:label="anki_clone"
+        android:label="Anki Clone"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

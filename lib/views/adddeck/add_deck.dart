@@ -1,5 +1,7 @@
 import 'package:anki_clone/database/sqflite.dart';
+import 'package:anki_clone/views/home/home_page.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class AddDeck extends StatefulWidget {
   // ignore: prefer_typing_uninitialized_variables
@@ -26,7 +28,9 @@ class _AddDeckState extends State<AddDeck> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            const SizedBox(height: 20,),
+            const SizedBox(
+              height: 20,
+            ),
             Container(
               decoration: BoxDecoration(
                   color: Colors.blue[100],
@@ -35,8 +39,8 @@ class _AddDeckState extends State<AddDeck> {
                 controller: name,
                 style: const TextStyle(fontSize: 18),
                 decoration: const InputDecoration(
-                  hintText: 'Ex: Frases em inglês',
-                  labelText: 'Nome do Baralho',
+                    hintText: 'Ex: Frases em inglês',
+                    labelText: 'Nome do Baralho',
                     border: InputBorder.none,
                     contentPadding: EdgeInsets.fromLTRB(5, 0, 5, 0)),
               ),
@@ -58,7 +62,8 @@ class _AddDeckState extends State<AddDeck> {
                     Deck d = Deck();
                     d.nameDeck = name.text;
                     helper.adicionarDeck(d);
-                    name.clear();
+                    //name.clear();
+                    Get.off(() => const HomePage());
                   }
                 },
               ),

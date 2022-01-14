@@ -1,5 +1,7 @@
+import 'package:anki_clone/controllers/card_controller.dart';
 import 'package:anki_clone/database/sqflite.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class AddCard extends StatefulWidget {
   // ignore: prefer_typing_uninitialized_variables
@@ -74,6 +76,7 @@ class _AddCardState extends State<AddCard> {
                   style: TextStyle(color: Colors.white, fontSize: 16),
                 ),
                 onPressed: () {
+                  CardController cc = Get.put(CardController());
                   if (back.text.isNotEmpty && front.text.isNotEmpty) {
                     Cartao c = Cartao();
                     c.back = back.text;
@@ -82,7 +85,7 @@ class _AddCardState extends State<AddCard> {
                     c.nivel = 0;
                     c.fkDeck = widget.snapshot.idDeck;
 
-                    helper.adicionarCartao(c);
+                    cc.addCards(c);
                     back.clear();
                     front.clear();
                   }
