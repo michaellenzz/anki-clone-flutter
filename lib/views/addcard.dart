@@ -44,7 +44,7 @@ class _AddCardState extends State<AddCard> {
             ),
             const Divider(),
             const Text(
-              'Atrás',
+              'Verso',
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
             ),
             Container(
