@@ -1,4 +1,3 @@
-
 import 'package:anki_clone/database/sqflite.dart';
 import 'package:flutter/material.dart';
 
@@ -17,14 +16,14 @@ class ListCards extends StatelessWidget {
         centerTitle: true,
       ),
       body: FutureBuilder<List>(
-          future: sqFlite.getAllCards(),
+          future: sqFlite.getAllCardsForDeck(snapshot.idDeck),
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
               return const Center(
                 child: CircularProgressIndicator(),
               );
             } else if (snapshot.data!.isEmpty) {
-              return const Center(child: Text('Não há cartões para estudar'));
+              return const Center(child: Text('Não há nenhum cartão aqui.'));
             } else {
               return Container(
                 padding: const EdgeInsets.all(8),

@@ -1,4 +1,5 @@
 import 'package:anki_clone/database/sqflite.dart';
+import 'package:anki_clone/views/adddeck/add_deck.dart';
 import 'package:anki_clone/views/infocards/info_card.dart';
 import 'package:flutter/material.dart';
 
@@ -16,7 +17,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     //Deck d = Deck();
-    //d.nameDeck = 'Primeiro Deck';
+    //d.nameDeck = 'Deck padrão';
     //sqFlite.adicionarDeck(d);
     super.initState();
   }
@@ -24,6 +25,13 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.add),
+        onPressed: () {
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => const AddDeck()));
+        },
+      ),
       appBar: AppBar(
         title: const Text('Anki Clone'),
         centerTitle: true,
@@ -36,7 +44,7 @@ class _HomePageState extends State<HomePage> {
                 child: CircularProgressIndicator(),
               );
             } else if (snapshot.data!.isEmpty) {
-              return const Center(child: Text('Não há Baralhos aqui.'));
+              return const Center(child: Text('Não há Baralhos aqui, crie um!.'));
             } else {
               return Container(
                 padding: const EdgeInsets.all(8),
@@ -49,16 +57,16 @@ class _HomePageState extends State<HomePage> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                      InfoCard(snapshot.data![0])));
+                                      InfoCard(snapshot.data![i])));
                         },
                         child: Container(
                             margin: const EdgeInsets.all(4),
-                            padding: const EdgeInsets.all(5),
+                            padding: const EdgeInsets.all(10),
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(5),
                                 color: Colors.grey[300]),
                             child: Text(
-                              snapshot.data![0].nameDeck,
+                              snapshot.data![i].nameDeck,
                               style: const TextStyle(
                                   fontSize: 16, fontWeight: FontWeight.w600),
                             )),

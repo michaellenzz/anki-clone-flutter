@@ -53,7 +53,7 @@ class SQFlite {
     cartao.id = await dbCartao!.insert(cardsTable, cartao.toMap());
     return cartao;
   }
-  
+
   Future<Deck> adicionarDeck(Deck deck) async {
     Database? dbDeck = await db;
     deck.idDeck = await dbDeck!.insert(decksTable, deck.toMap());
@@ -94,8 +94,10 @@ class SQFlite {
 
   Future<List> getAllCardsToStudy(idDeck) async {
     DateTime hoje = DateTime.now();
+    //print(hoje);
     Database? dbCartao = await db;
-    List listMap = await dbCartao!.rawQuery('SELECT * FROM $cardsTable WHERE $fkDeckColumn = $idDeck');
+    List listMap = await dbCartao!
+        .rawQuery('SELECT * FROM $cardsTable WHERE $fkDeckColumn = $idDeck');
     List<Cartao> listCartao = [];
     for (Map m in listMap) {
       DateTime proxRev = DateTime.parse(m['proxRevisaoColumn']);
@@ -106,19 +108,20 @@ class SQFlite {
     return listCartao;
   }
 
-  Future<List> getAllCards() async {
+  Future<List> getAllCardsForDeck(idDeck) async {
     Database? dbCartao = await db;
-    List listMap = await dbCartao!.rawQuery('SELECT * FROM $cardsTable');
+    List listMap = await dbCartao!.rawQuery('SELECT * FROM $cardsTable WHERE $fkDeckColumn = $idDeck');
     List<Cartao> listCartao = [];
     for (Map m in listMap) {
       listCartao.add(Cartao.fromMap(m));
     }
     return listCartao;
   }
-  
+
   Future<List> getAllDecks() async {
     Database? dbDeck = await db;
     List listMap = await dbDeck!.rawQuery('SELECT * FROM $decksTable');
+    //List listMap = await dbDeck!.rawQuery('SELECT * FROM $cardsTable as c INNER JOIN $decksTable as d on c.$fkDeckColumn = d.$idDeckColumn');
     List<Deck> listDeck = [];
     for (Map m in listMap) {
       listDeck.add(Deck.fromMap(m));
@@ -171,17 +174,16 @@ class Cartao {
     return 'Cartao(id: $id, back: $back, front: $front, nivel: $nivel, proxRevisao: $proxRevisao, fkDeck: $fkDeck)';
   }
 }
+
 class Deck {
   int? idDeck;
   String? nameDeck;
-
 
   Deck();
 
   Deck.fromMap(Map map) {
     idDeck = map[idDeckColumn];
     nameDeck = map[nameDeckColumn];
-
   }
 
   Map<String, dynamic> toMap() {

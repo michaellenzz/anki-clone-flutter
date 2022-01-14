@@ -81,6 +81,9 @@ class _InfoCardState extends State<InfoCard> {
                             color: Colors.white),
                       ),
                       onPressed: () {
+                        setState(() {
+                          //atualizar lista
+                        });
                         Navigator.push(
                             context,
                             MaterialPageRoute(

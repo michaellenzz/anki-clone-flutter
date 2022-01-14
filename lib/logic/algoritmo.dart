@@ -13,6 +13,7 @@ class Algoritmo {
         {
           proxRevisao = hoje;
           novoNivel = 0;
+          print('caiu aqui');
         }
         break;
 
@@ -72,6 +73,7 @@ class Algoritmo {
     c.front = cartao.front;
     c.nivel = novoNivel;
     c.proxRevisao = proxRevisao.toString();
+    c.fkDeck = cartao.fkDeck;
     sqFlite.updateCartao(c);
   }
 
@@ -143,12 +145,13 @@ class Algoritmo {
     c.back = cartao.back;
     c.front = cartao.front;
     c.nivel = novoNivel;
+    c.fkDeck = cartao.fkDeck;
     c.proxRevisao = proxRevisao.toString();
     sqFlite.updateCartao(c);
   }
 
   botaoFacil(cartao) {
-      DateTime hoje = DateTime.now();
+    DateTime hoje = DateTime.now();
     DateTime? proxRevisao;
     int novoNivel = 0;
 
@@ -215,6 +218,7 @@ class Algoritmo {
     c.back = cartao.back;
     c.front = cartao.front;
     c.nivel = novoNivel;
+    c.fkDeck = cartao.fkDeck;
     c.proxRevisao = proxRevisao.toString();
     sqFlite.updateCartao(c);
   }
