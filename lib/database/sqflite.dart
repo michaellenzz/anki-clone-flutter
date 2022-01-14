@@ -76,6 +76,7 @@ class SQFlite {
   }
 
   Future<List> getAllCards() async {
+    print('buscou no banco');
     DateTime hoje = DateTime.now();
     Database? dbCartao = await db;
     List listMap = await dbCartao!.rawQuery('SELECT * FROM $cardsTable');

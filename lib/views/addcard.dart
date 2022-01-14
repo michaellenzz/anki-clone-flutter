@@ -14,6 +14,7 @@ class _AddCardState extends State<AddCard> {
   var front = TextEditingController();
   var back = TextEditingController();
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
