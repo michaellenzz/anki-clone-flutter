@@ -2,6 +2,7 @@ import 'package:anki_clone/logic/algoritmo.dart';
 import 'package:anki_clone/database/sqflite.dart';
 import 'package:anki_clone/views/cardscreen/botao_escolha.dart';
 import 'package:anki_clone/views/cardscreen/botao_mostrar.dart';
+import 'package:anki_clone/views/cardscreen/card_image.dart';
 import 'package:anki_clone/views/cardscreen/flip_card.dart';
 import 'package:flip_card/flip_card_controller.dart';
 import 'package:flutter/material.dart';
@@ -60,7 +61,8 @@ class _CardScreenState extends State<CardScreen> {
                               children: [
                                 Container(
                                     padding: const EdgeInsets.all(8),
-                                    child: FlipCardCustom(
+                                    child: snapshot.data![i].isImage == 1 ? CardImage(_controller, snapshot.data![i])
+                                    : FlipCardCustom(
                                         _controller, snapshot.data![i])),
                               ],
                             ),

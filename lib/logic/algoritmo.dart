@@ -68,8 +68,11 @@ class Algoritmo {
 
     Cartao c = Cartao();
     c.id = cartao.id;
+    c.isImage = cartao.isImage;
     c.back = cartao.back;
     c.front = cartao.front;
+    c.backImage = cartao.backImage;
+    c.frontImage = cartao.frontImage;
     c.nivel = novoNivel;
     c.proxRevisao = proxRevisao.toString();
     c.fkDeck = cartao.fkDeck;
@@ -141,8 +144,11 @@ class Algoritmo {
 
     Cartao c = Cartao();
     c.id = cartao.id;
+    c.isImage = cartao.isImage;
     c.back = cartao.back;
     c.front = cartao.front;
+    c.backImage = cartao.backImage;
+    c.frontImage = cartao.frontImage;
     c.nivel = novoNivel;
     c.fkDeck = cartao.fkDeck;
     c.proxRevisao = proxRevisao.toString();
@@ -214,8 +220,11 @@ class Algoritmo {
 
     Cartao c = Cartao();
     c.id = cartao.id;
+    c.isImage = cartao.isImage;
     c.back = cartao.back;
     c.front = cartao.front;
+    c.backImage = cartao.backImage;
+    c.frontImage = cartao.frontImage;
     c.nivel = novoNivel;
     c.fkDeck = cartao.fkDeck;
     c.proxRevisao = proxRevisao.toString();

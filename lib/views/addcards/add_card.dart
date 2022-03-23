@@ -75,10 +75,11 @@ class _AddCardState extends State<AddCard> {
                   'Adicionar',
                   style: TextStyle(color: Colors.white, fontSize: 16),
                 ),
-                onPressed: () {
+                onPressed: () async {
                   CardController cc = Get.put(CardController());
                   if (back.text.isNotEmpty && front.text.isNotEmpty) {
                     Cartao c = Cartao();
+                    c.isImage = 0;
                     c.back = back.text;
                     c.front = front.text;
                     c.proxRevisao = DateTime.now().toString();

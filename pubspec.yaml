@@ -18,6 +18,8 @@ dependencies:
   sqflite: ^2.0.1
   flip_card: ^0.6.0
   get: ^4.6.1
+  image_picker: ^0.8.4+11
+  flutter_painter: ^1.0.0
 
 dev_dependencies:
   flutter_test:

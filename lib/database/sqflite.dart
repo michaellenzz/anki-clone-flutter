@@ -1,11 +1,16 @@
+import 'dart:typed_data';
+
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
 //atributos da tabela cards
 const String cardsTable = "cardsTable";
 const String idColumn = "idColumn";
+const String isImageColumn = "isImageColumn";
 const String backColumn = "backColumn";
 const String frontColumn = "frontColumn";
+const String frontImageColumn = "frontImageColumn";
+const String backImageColumn = "backImageColumn";
 const String nivelColumn = "nivelColumn";
 const String proxRevisaoColumn = "proxRevisaoColumn";
 const String fkDeckColumn = "fkDeckColumn";
@@ -41,7 +46,7 @@ class SQFlite {
     return await openDatabase(path, version: 1,
         onCreate: (Database db, int newVersion) async {
       await db.execute(
-          'CREATE TABLE $cardsTable ($idColumn INTEGER PRIMARY KEY autoincrement, $backColumn TEXT, $frontColumn TEXT, $nivelColumn INTEGER, $proxRevisaoColumn TEXT, $fkDeckColumn INTEGER)');
+          'CREATE TABLE $cardsTable ($idColumn INTEGER PRIMARY KEY autoincrement, $isImageColumn INTEGER, $backColumn TEXT, $frontColumn TEXT, $backImageColumn BLOB, $frontImageColumn BLOB, $nivelColumn INTEGER, $proxRevisaoColumn TEXT, $fkDeckColumn INTEGER)');
 
       await db.execute(
           'CREATE TABLE $decksTable ($idDeckColumn INTEGER PRIMARY KEY autoincrement, $nameDeckColumn TEXT)');
@@ -65,8 +70,11 @@ class SQFlite {
     List<Map> maps = await dbCartao!.query(cardsTable,
         columns: [
           idColumn,
+          isImageColumn,
           backColumn,
           frontColumn,
+          backImageColumn,
+          frontImageColumn,
           nivelColumn,
           proxRevisaoColumn,
           fkDeckColumn
@@ -110,7 +118,8 @@ class SQFlite {
 
   Future<List> getAllCardsForDeck(idDeck) async {
     Database? dbCartao = await db;
-    List listMap = await dbCartao!.rawQuery('SELECT * FROM $cardsTable WHERE $fkDeckColumn = $idDeck');
+    List listMap = await dbCartao!
+        .rawQuery('SELECT * FROM $cardsTable WHERE $fkDeckColumn = $idDeck');
     List<Cartao> listCartao = [];
     for (Map m in listMap) {
       listCartao.add(Cartao.fromMap(m));
@@ -137,8 +146,11 @@ class SQFlite {
 
 class Cartao {
   int? id;
+  int? isImage;
   String? back;
   String? front;
+  Uint8List? frontImage;
+  Uint8List? backImage;
   int? nivel;
   String? proxRevisao;
   int? fkDeck;
@@ -147,8 +159,11 @@ class Cartao {
 
   Cartao.fromMap(Map map) {
     id = map[idColumn];
+    isImage = map[isImageColumn];
     back = map[backColumn];
     front = map[frontColumn];
+    frontImage = map[frontImageColumn];
+    backImage = map[backImageColumn];
     nivel = map[nivelColumn];
     proxRevisao = map[proxRevisaoColumn];
     fkDeck = map[fkDeckColumn];
@@ -156,8 +171,11 @@ class Cartao {
 
   Map<String, dynamic> toMap() {
     Map<String, dynamic> map = {
+      isImageColumn: isImage,
       backColumn: back,
       frontColumn: front,
+      backImageColumn: backImage,
+      frontImageColumn: frontImage,
       nivelColumn: nivel,
       proxRevisaoColumn: proxRevisao,
       fkDeckColumn: fkDeck
@@ -171,7 +189,7 @@ class Cartao {
 
   @override
   String toString() {
-    return 'Cartao(id: $id, back: $back, front: $front, nivel: $nivel, proxRevisao: $proxRevisao, fkDeck: $fkDeck)';
+    return 'Cartao(id: $id, isImage: $isImage, back: $back, front: $front, backImage: $backImage, frontImage: $frontImage, nivel: $nivel, proxRevisao: $proxRevisao, fkDeck: $fkDeck)';
   }
 }
 

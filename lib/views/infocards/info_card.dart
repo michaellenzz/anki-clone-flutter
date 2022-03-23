@@ -1,6 +1,7 @@
 import 'package:anki_clone/controllers/card_controller.dart';
 import 'package:anki_clone/database/sqflite.dart';
 import 'package:anki_clone/views/addcards/add_card.dart';
+import 'package:anki_clone/views/addcards/add_card_image.dart';
 import 'package:anki_clone/views/cardscreen/cardscreen.dart';
 import 'package:anki_clone/views/listcads/list_cards.dart';
 import 'package:flutter/material.dart';
@@ -50,8 +51,7 @@ class _InfoCardState extends State<InfoCard> {
               icon: const Icon(Icons.list)),
           IconButton(
               onPressed: () {
-                Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (context) => AddCard(widget.snapshot)));
+                Get.to(() => AddCardImage(widget.snapshot));
               },
               icon: const Icon(Icons.add)),
         ],
