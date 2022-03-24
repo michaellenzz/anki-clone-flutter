@@ -46,7 +46,7 @@ class _CardScreenState extends State<CardScreen> {
                   child: CircularProgressIndicator(),
                 );
               } else if (snapshot.data!.isEmpty) {
-                return const Center(child: Text('Não há cartões para estudar'));
+                return const Center(child: Text('Ótimo trabalho!', style: TextStyle(fontSize: 18, color: Colors.blue),));
               } else {
                 return PageView.builder(
                     physics: const NeverScrollableScrollPhysics(),

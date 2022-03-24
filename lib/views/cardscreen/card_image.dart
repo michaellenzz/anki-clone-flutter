@@ -11,7 +11,7 @@ class CardImage extends StatelessWidget {  // ignore: prefer_typing_uninitialize
   @override
   Widget build(BuildContext context) {
     return FlipCard(
-      speed: 230,
+      speed: 0,
       direction: FlipDirection.VERTICAL,
       controller: _controller,
       flipOnTouch: false,

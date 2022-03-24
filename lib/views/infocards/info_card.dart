@@ -5,6 +5,7 @@ import 'package:anki_clone/views/addcards/add_card_image.dart';
 import 'package:anki_clone/views/cardscreen/cardscreen.dart';
 import 'package:anki_clone/views/listcads/list_cards.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:get/get.dart';
 
 // ignore: must_be_immutable
@@ -39,21 +40,50 @@ class _InfoCardState extends State<InfoCard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: SpeedDial(
+          icon: Icons.add,
+          activeIcon: Icons.close,
+          spacing: 3,
+          childPadding: const EdgeInsets.all(5),
+          spaceBetweenChildren: 4,
+          tooltip: 'Adicionar novo card',
+          // backgroundColor: Colors.white,
+          // activeForegroundColor: Colors.red,
+          // activeBackgroundColor: Colors.blue,
+          isOpenOnStart: false,
+          animationSpeed: 200,
+
+          children: [
+            SpeedDialChild(
+              child: const Icon(Icons.photo),
+              backgroundColor: Colors.red,
+              foregroundColor: Colors.white,
+              label: 'Adicionar card com foto',
+              onTap: () {
+                Get.off(() => AddCardImage(widget.snapshot));
+              },
+            ),
+            SpeedDialChild(
+              child: const Icon(Icons.text_fields_rounded),
+              backgroundColor: Colors.deepOrange,
+              foregroundColor: Colors.white,
+              label: 'Adicionar card com texto',
+              onTap: () {
+                Get.off(() => AddCard(widget.snapshot));
+              },
+            ),
+          ],
+        ),
       appBar: AppBar(
         title: Text(widget.snapshot.nameDeck),
         centerTitle: true,
         actions: [
+          
           IconButton(
               onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => ListCards(widget.snapshot)));
+                Get.to(() => ListCards(widget.snapshot));
               },
               icon: const Icon(Icons.list)),
-          IconButton(
-              onPressed: () {
-                Get.to(() => AddCardImage(widget.snapshot));
-              },
-              icon: const Icon(Icons.add)),
         ],
       ),
       body: GetBuilder<CardController>(builder: (value) {

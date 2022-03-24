@@ -33,7 +33,7 @@ class _HomePageState extends State<HomePage> {
         },
       ),
       appBar: AppBar(
-        title: const Text('Anki Clone'),
+        title: const Text('Anki Thaisa'),
         centerTitle: true,
       ),
       body: FutureBuilder<List>(
@@ -49,6 +49,7 @@ class _HomePageState extends State<HomePage> {
               return Container(
                 padding: const EdgeInsets.all(8),
                 child: ListView.builder(
+                  
                     itemCount: snapshot.data!.length,
                     itemBuilder: (c, i) {
                       return InkWell(

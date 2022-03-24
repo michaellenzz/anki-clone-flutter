@@ -43,7 +43,7 @@ class ListCards extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.stretch,
                                 children: [
                                   Text(
-                                    snapshot.data![i].front,
+                                    snapshot.data![i].isImage == 1 ? 'Imagem' : snapshot.data![i].front,
                                     style: const TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.w600),
@@ -52,7 +52,7 @@ class ListCards extends StatelessWidget {
                                     thickness: 1,
                                   ),
                                   Text(
-                                    snapshot.data![i].back,
+                                    snapshot.data![i].isImage == 1 ? 'Imagem' : snapshot.data![i].back,
                                     style: const TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.w600),
