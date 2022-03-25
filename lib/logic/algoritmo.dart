@@ -18,42 +18,42 @@ class Algoritmo {
 
       case 1:
         {
-          proxRevisao = hoje.add(const Duration(days: 1));
+          proxRevisao = hoje;
           novoNivel = 0;
         }
         break;
 
       case 2:
         {
-          proxRevisao = hoje.add(const Duration(days: 4));
+          proxRevisao = hoje.add(const Duration(days: 2));
           novoNivel = 1;
         }
         break;
 
       case 3:
         {
-          proxRevisao = hoje.add(const Duration(days: 8));
+          proxRevisao = hoje.add(const Duration(days: 4));
           novoNivel = 2;
         }
         break;
 
       case 4:
         {
-          proxRevisao = hoje.add(const Duration(days: 16));
+          proxRevisao = hoje.add(const Duration(days: 8));
           novoNivel = 3;
         }
         break;
 
       case 5:
         {
-          proxRevisao = hoje.add(const Duration(days: 32));
+          proxRevisao = hoje.add(const Duration(days: 22));
           novoNivel = 4;
         }
         break;
 
       case 6:
         {
-          proxRevisao = hoje.add(const Duration(days: 64));
+          proxRevisao = hoje.add(const Duration(days: 44));
           novoNivel = 5;
         }
         break;
@@ -87,49 +87,49 @@ class Algoritmo {
     switch (cartao.nivel) {
       case 0:
         {
-          proxRevisao = hoje.add(const Duration(days: 1));
+          proxRevisao = hoje;
           novoNivel = 1;
         }
         break;
 
       case 1:
         {
-          proxRevisao = hoje.add(const Duration(days: 4));
+          proxRevisao = hoje.add(const Duration(days: 1));
           novoNivel = 2;
         }
         break;
 
       case 2:
         {
-          proxRevisao = hoje.add(const Duration(days: 8));
+          proxRevisao = hoje.add(const Duration(days: 3));
           novoNivel = 3;
         }
         break;
 
       case 3:
         {
-          proxRevisao = hoje.add(const Duration(days: 16));
+          proxRevisao = hoje.add(const Duration(days: 7));
           novoNivel = 4;
         }
         break;
 
       case 4:
         {
-          proxRevisao = hoje.add(const Duration(days: 32));
+          proxRevisao = hoje.add(const Duration(days: 17));
           novoNivel = 5;
         }
         break;
 
       case 5:
         {
-          proxRevisao = hoje.add(const Duration(days: 64));
+          proxRevisao = hoje.add(const Duration(days: 45));
           novoNivel = 6;
         }
         break;
 
       case 6:
         {
-          proxRevisao = hoje.add(const Duration(days: 128));
+          proxRevisao = hoje.add(const Duration(days: 96));
           novoNivel = 6;
         }
         break;
@@ -177,35 +177,35 @@ class Algoritmo {
 
       case 2:
         {
-          proxRevisao = hoje.add(const Duration(days: 8));
+          proxRevisao = hoje.add(const Duration(days: 4));
           novoNivel = 5;
         }
         break;
 
       case 3:
         {
-          proxRevisao = hoje.add(const Duration(days: 16));
+          proxRevisao = hoje.add(const Duration(days: 13));
           novoNivel = 6;
         }
         break;
 
       case 4:
         {
-          proxRevisao = hoje.add(const Duration(days: 32));
+          proxRevisao = hoje.add(const Duration(days: 22));
           novoNivel = 6;
         }
         break;
 
       case 5:
         {
-          proxRevisao = hoje.add(const Duration(days: 64));
+          proxRevisao = hoje.add(const Duration(days: 60));
           novoNivel = 6;
         }
         break;
 
       case 6:
         {
-          proxRevisao = hoje.add(const Duration(days: 128));
+          proxRevisao = hoje.add(const Duration(days: 130));
           novoNivel = 6;
         }
         break;

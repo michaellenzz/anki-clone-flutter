@@ -15,11 +15,11 @@ dependencies:
 
 
   cupertino_icons: ^1.0.2
-  sqflite: ^2.0.1
+  sqflite: ^2.0.2
   flip_card: ^0.6.0
   get: ^4.6.1
   image_picker: ^0.8.4+11
-  flutter_painter: ^1.0.0
+  flutter_painter: ^1.0.1
   flutter_speed_dial: ^5.0.0+1
 
 dev_dependencies:

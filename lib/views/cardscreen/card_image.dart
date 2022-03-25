@@ -1,16 +1,19 @@
-import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 
-class CardImage extends StatelessWidget {  // ignore: prefer_typing_uninitialized_variables
+class CardImage extends StatelessWidget {
   // ignore: prefer_typing_uninitialized_variables
-  final _controller;
+  // ignore: prefer_typing_uninitialized_variables
+  final cartaVirada;
   // ignore: prefer_typing_uninitialized_variables
   final snapshot;
-  const CardImage(this._controller, this.snapshot, { Key? key }) : super(key: key);
+  const CardImage(this.cartaVirada, this.snapshot, {Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return FlipCard(
+    return Image.memory(cartaVirada ? snapshot.backImage : snapshot.frontImage);
+
+    /*FlipCard(
       speed: 0,
       direction: FlipDirection.VERTICAL,
       controller: _controller,
@@ -21,6 +24,6 @@ class CardImage extends StatelessWidget {  // ignore: prefer_typing_uninitialize
       back: Center(
         child: Image.memory(snapshot.backImage),
       ),
-    );
+    );*/
   }
 }

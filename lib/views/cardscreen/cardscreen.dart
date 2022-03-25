@@ -18,6 +18,7 @@ class CardScreen extends StatefulWidget {
 
 class _CardScreenState extends State<CardScreen> {
   FlipCardController? _controller;
+
   PageController? _pageController;
   SQFlite helper = SQFlite();
   bool cartaVirada = false;
@@ -61,7 +62,7 @@ class _CardScreenState extends State<CardScreen> {
                               children: [
                                 Container(
                                     padding: const EdgeInsets.all(8),
-                                    child: snapshot.data![i].isImage == 1 ? CardImage(_controller, snapshot.data![i])
+                                    child: snapshot.data![i].isImage == 1 ? CardImage(cartaVirada, snapshot.data![i])
                                     : FlipCardCustom(
                                         _controller, snapshot.data![i])),
                               ],

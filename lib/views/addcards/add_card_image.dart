@@ -47,7 +47,6 @@ class _AddCardImageState extends State<AddCardImage> {
       backgroundImage = image3;
 
       controller.background = image3.backgroundDrawable;
-      print(backgroundImage!.width.toDouble());
     });
   }
 
