@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return GetMaterialApp(
-        title: 'Anki Thaisa',
+        title: 'Anki Clone',
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),

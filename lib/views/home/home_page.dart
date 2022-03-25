@@ -33,7 +33,7 @@ class _HomePageState extends State<HomePage> {
         },
       ),
       appBar: AppBar(
-        title: const Text('Anki Thaisa'),
+        title: const Text('Anki Clone'),
         centerTitle: true,
       ),
       body: FutureBuilder<List>(
